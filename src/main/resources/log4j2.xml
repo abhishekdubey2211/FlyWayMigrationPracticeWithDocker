@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+
+    <!-- ====================================== -->
+    <!--         CONFIGURATION PROPERTIES      -->
+    <!-- ====================================== -->
+
+    <Properties>
+        <Property name="LOG_FILE_NAME">SecurityServiceApi</Property>
+        <Property name="APP_NAME">SecurityService</Property>
+        <Property name="ROTATION_TYPE">hour</Property>
+        <Property name="ROTATION_INTERVAL">1</Property>
+        <Property name="LOG_RETENTION_DAYS">5</Property>
+        <Property name="ROOT_LOG_LEVEL">info</Property>         <!--    log levels : all - trace - debug - info - warn - error - off -->
+        <Property name="LOG_FILE_PATH">/logs</Property>
+    </Properties>
+
+    <!-- ====================================== -->
+    <!--               APPENDERS               -->
+    <!-- ====================================== -->
+    <Appenders>
+
+        <!-- Rolling File Appender: Writes logs to file and rotates based on time -->
+        <RollingFile name="RollingFileAppender"
+                     fileName="${LOG_FILE_PATH}/${LOG_FILE_NAME}-live.log"
+                     filePattern="${LOG_FILE_PATH}/${LOG_FILE_NAME}-%d{yyyy-MM-dd-HH__HH_mm}-${ROTATION_TYPE}.log.gz">
+
+            <!-- Log entry format: timestamp, thread, log level, app name, logger name, method, line number, message -->
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS}  %-5p [%t]  [${APP_NAME}] %c{2}.%M [%L] -- %m%n"/>
+
+            <!-- Time-based rotation policy -->
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="${ROTATION_INTERVAL}" modulate="true"/>
+            </Policies>
+
+            <!-- Retention strategy: keep only the last N files -->
+            <DefaultRolloverStrategy max="${LOG_RETENTION_DAYS}" />
+        </RollingFile>
+
+        <!-- Console Appender: Prints logs to standard output (terminal) -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%t] [${APP_NAME}] %c{1}.%M [%L] -- %m%n"/>
+        </Console>
+    </Appenders>
+
+    <!-- ====================================== -->
+    <!--               LOGGERS                 -->
+    <!-- ====================================== -->
+    <Loggers>
+        <!-- Root Logger: applies to all packages unless overridden -->
+        <Root level="${ROOT_LOG_LEVEL}">
+            <AppenderRef ref="RollingFileAppender"/>
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+
+</Configuration>

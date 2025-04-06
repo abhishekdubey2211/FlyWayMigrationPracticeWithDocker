@@ -1,0 +1,118 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: jodo_db
+      MYSQL_USER: jodo_user
+      MYSQL_PASSWORD: jodo_pass
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+#     mysql -hlocalhost -P3307 -uroot -proot
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - jodo-network
+
+  redis-master:
+    image: redis:7.2
+    container_name: redis-master
+    command: redis-server --requirepass abhi123 --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - jodo-network
+    healthcheck:
+#      docker exec -it redis-master redis-cli -a abhi123
+      test: ["CMD", "redis-cli", "-a", "abhi123", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis-sentinel-1:
+    image: redis:7.2
+    container_name: redis-sentinel-1
+    depends_on:
+      - redis-master
+    volumes:
+      - ./sentinel.conf:/etc/sentinel.conf
+    command: redis-server /etc/sentinel.conf --sentinel
+    ports:
+      - "26379:26379"
+    networks:
+      - jodo-network
+    healthcheck:
+#      docker exec -it redis-sentinel-1 redis-cli -p 26379
+      test: [ "CMD", "redis-cli", "-p", "26379", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis-sentinel-2:
+    image: redis:7.2
+    container_name: redis-sentinel-2
+    depends_on:
+      - redis-master
+    volumes:
+      - ./sentinel.conf:/etc/sentinel.conf
+    command: redis-server /etc/sentinel.conf --sentinel
+    ports:
+      - "26380:26379"
+    networks:
+      - jodo-network
+    healthcheck:
+#      docker exec -it redis-sentinel-2 redis-cli -p 26379
+      test: [ "CMD", "redis-cli", "-p", "26379", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  springboot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jodo-app
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis-master:
+        condition: service_healthy
+      redis-sentinel-1:
+        condition: service_healthy
+      redis-sentinel-2:
+        condition: service_healthy
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./logs:/logs
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/jodo_db
+      SPRING_DATASOURCE_USERNAME: jodo_user
+      SPRING_DATASOURCE_PASSWORD: jodo_pass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_PROFILES_ACTIVE: docker
+      REDIS_PASSWORD: abhi123
+      REDIS_SENTINEL_MASTER: mymaster
+      REDIS_SENTINEL_NODES: redis-sentinel-1:26379,redis-sentinel-2:26379
+
+      TZ: Asia/Kolkata
+      JAVA_OPTS: -Duser.timezone=Asia/Kolkata
+    networks:
+      - jodo-network
+
+volumes:
+  mysql_data:
+  redis_data:
+
+networks:
+  jodo-network:
