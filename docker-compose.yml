@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   mysql:
     image: mysql:8.0
@@ -14,68 +16,132 @@ services:
       - mysql_data:/var/lib/mysql
     command: --default-authentication-plugin=mysql_native_password
     healthcheck:
-#     mysql -hlocalhost -P3307 -uroot -proot
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ujodo_user", "-pjodo_pass", "-P", "3306"]
       interval: 10s
       timeout: 5s
       retries: 10
     networks:
-      - jodo-network
+      jodo-network:
 
   redis-master:
-    image: redis:7.2
+    image: redis:latest
     container_name: redis-master
-    command: redis-server --requirepass abhi123 --appendonly yes
+    hostname: redis-master
     ports:
       - "6379:6379"
     volumes:
-      - redis_data:/data
+      - ./data/master:/data
+    command: >
+      redis-server --requirepass abhi123 --masterauth abhi123 --appendonly yes 
+      --repl-diskless-load on-empty-db --protected-mode no
     networks:
-      - jodo-network
-    healthcheck:
-#      docker exec -it redis-master redis-cli -a abhi123
-      test: ["CMD", "redis-cli", "-a", "abhi123", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
+      jodo-network:
+        ipv4_address: 172.21.0.3
 
-  redis-sentinel-1:
-    image: redis:7.2
-    container_name: redis-sentinel-1
+  redis-slave-1:
+    image: redis:latest
+    container_name: redis-slave-1
+    hostname: redis-slave-1
     depends_on:
       - redis-master
+    ports:
+      - "6380:6379"
     volumes:
-      - ./sentinel.conf:/etc/sentinel.conf
-    command: redis-server /etc/sentinel.conf --sentinel
+      - ./data/slave1:/data
+    command: >
+      redis-server --requirepass abhi123 --masterauth abhi123 
+      --replicaof redis-master 6379 --appendonly yes 
+      --repl-diskless-load on-empty-db --protected-mode no
+    networks:
+      jodo-network:
+        ipv4_address: 172.21.0.4
+
+  redis-slave-2:
+    image: redis:latest
+    container_name: redis-slave-2
+    hostname: redis-slave-2
+    depends_on:
+      - redis-master
+    ports:
+      - "6381:6379"
+    volumes:
+      - ./data/slave2:/data
+    command: >
+      redis-server --requirepass abhi123 --masterauth abhi123 
+      --replicaof redis-master 6379 --appendonly yes 
+      --repl-diskless-load on-empty-db --protected-mode no
+    networks:
+      jodo-network:
+        ipv4_address: 172.21.0.5
+
+  sentinel-1:
+    image: redis:latest
+    container_name: sentinel-1
+    hostname: sentinel-1
+    depends_on:
+      - redis-master
     ports:
       - "26379:26379"
+    command: >
+      sh -c 'echo "port 26379" > /etc/sentinel.conf &&
+             echo "sentinel monitor mymaster 172.21.0.3 6379 2" >> /etc/sentinel.conf &&
+             echo "sentinel auth-pass mymaster abhi123" >> /etc/sentinel.conf &&
+             echo "sentinel down-after-milliseconds mymaster 10000" >> /etc/sentinel.conf &&
+             echo "sentinel failover-timeout mymaster 10000" >> /etc/sentinel.conf &&
+             echo "sentinel parallel-syncs mymaster 1" >> /etc/sentinel.conf &&
+             redis-sentinel /etc/sentinel.conf'
     networks:
-      - jodo-network
-    healthcheck:
-#      docker exec -it redis-sentinel-1 redis-cli -p 26379
-      test: [ "CMD", "redis-cli", "-p", "26379", "ping" ]
-      interval: 10s
-      timeout: 5s
-      retries: 10
+      jodo-network:
+        ipv4_address: 172.21.0.6
 
-  redis-sentinel-2:
-    image: redis:7.2
-    container_name: redis-sentinel-2
+  sentinel-2:
+    image: redis:latest
+    container_name: sentinel-2
+    hostname: sentinel-2
     depends_on:
       - redis-master
-    volumes:
-      - ./sentinel.conf:/etc/sentinel.conf
-    command: redis-server /etc/sentinel.conf --sentinel
     ports:
       - "26380:26379"
+    command: >
+      sh -c 'echo "port 26379" > /etc/sentinel.conf &&
+             echo "sentinel monitor mymaster 172.21.0.3 6379 2" >> /etc/sentinel.conf &&
+             echo "sentinel auth-pass mymaster abhi123" >> /etc/sentinel.conf &&
+             echo "sentinel down-after-milliseconds mymaster 10000" >> /etc/sentinel.conf &&
+             echo "sentinel failover-timeout mymaster 10000" >> /etc/sentinel.conf &&
+             echo "sentinel parallel-syncs mymaster 1" >> /etc/sentinel.conf &&
+             redis-sentinel /etc/sentinel.conf'
     networks:
-      - jodo-network
-    healthcheck:
-#      docker exec -it redis-sentinel-2 redis-cli -p 26379
-      test: [ "CMD", "redis-cli", "-p", "26379", "ping" ]
-      interval: 10s
-      timeout: 5s
-      retries: 10
+      jodo-network:
+        ipv4_address: 172.21.0.7
+
+  sentinel-3:
+    image: redis:latest
+    container_name: sentinel-3
+    hostname: sentinel-3
+    depends_on:
+      - redis-master
+    ports:
+      - "26381:26379"
+    command: >
+      sh -c 'echo "port 26379" > /etc/sentinel.conf &&
+             echo "sentinel monitor mymaster 172.21.0.3 6379 2" >> /etc/sentinel.conf &&
+             echo "sentinel auth-pass mymaster abhi123" >> /etc/sentinel.conf &&
+             echo "sentinel down-after-milliseconds mymaster 10000" >> /etc/sentinel.conf &&
+             echo "sentinel failover-timeout mymaster 10000" >> /etc/sentinel.conf &&
+             echo "sentinel parallel-syncs mymaster 1" >> /etc/sentinel.conf &&
+             redis-sentinel /etc/sentinel.conf'
+    networks:
+      jodo-network:
+        ipv4_address: 172.21.0.8
+
+  redisinsight:
+    image: redis/redisinsight:latest
+    container_name: redisinsight
+    ports:
+      - "5540:5540"
+    networks:
+      jodo-network:
+        ipv4_address: 172.21.0.9
 
   springboot-app:
     build:
@@ -86,29 +152,24 @@ services:
       mysql:
         condition: service_healthy
       redis-master:
-        condition: service_healthy
-      redis-sentinel-1:
-        condition: service_healthy
-      redis-sentinel-2:
-        condition: service_healthy
+        condition: service_started
     ports:
       - "8081:8080"
     volumes:
       - ./logs:/logs
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/jodo_db
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/jodo_db
       SPRING_DATASOURCE_USERNAME: jodo_user
       SPRING_DATASOURCE_PASSWORD: jodo_pass
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_PROFILES_ACTIVE: docker
       REDIS_PASSWORD: abhi123
       REDIS_SENTINEL_MASTER: mymaster
-      REDIS_SENTINEL_NODES: redis-sentinel-1:26379,redis-sentinel-2:26379
-
+      REDIS_SENTINEL_NODES: sentinel-1:26379,sentinel-2:26379,sentinel-3:26379
       TZ: Asia/Kolkata
-      JAVA_OPTS: -Duser.timezone=Asia/Kolkata
+    command: java -jar /app/app.jar
     networks:
-      - jodo-network
+      jodo-network:
 
 volumes:
   mysql_data:
@@ -116,3 +177,7 @@ volumes:
 
 networks:
   jodo-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16

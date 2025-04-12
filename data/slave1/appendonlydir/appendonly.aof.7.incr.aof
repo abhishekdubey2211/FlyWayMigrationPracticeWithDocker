@@ -1,0 +1,832 @@
+*2
+$6
+SELECT
+$1
+0
+*4
+$4
+HSET
+$9
+User:1001
+$4
+Name
+$8
+Abhishek
+*4
+$4
+HSET
+$9
+User:1001
+$5
+Email
+$19
+abdubey42@gmail.com
+*4
+$5
+RPUSH
+$8
+UserList
+$0
+
+$0
+
+*4
+$4
+LSET
+$8
+UserList
+$1
+0
+$5
+User1
+*4
+$4
+LSET
+$8
+UserList
+$1
+1
+$5
+User2
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$28
+Message  Hello Mr. Abhishek0
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$28
+Message  Hello Mr. Abhishek1
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$28
+Message  Hello Mr. Abhishek1
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$28
+Message  Hello Mr. Abhishek2
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$28
+Message  Hello Mr. Abhishek2
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$28
+Message  Hello Mr. Abhishek3
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$28
+Message  Hello Mr. Abhishek3
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$28
+Message  Hello Mr. Abhishek4
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$28
+Message  Hello Mr. Abhishek4
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$28
+Message  Hello Mr. Abhishek5
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$28
+Message  Hello Mr. Abhishek5
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$28
+Message  Hello Mr. Abhishek6
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$28
+Message  Hello Mr. Abhishek7
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$28
+Message  Hello Mr. Abhishek7
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$28
+Message  Hello Mr. Abhishek8
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$28
+Message  Hello Mr. Abhishek8
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$28
+Message  Hello Mr. Abhishek9
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$28
+Message  Hello Mr. Abhishek9
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek10
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek10
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek11
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek11
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek12
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek12
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek13
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek13
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek14
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek14
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek15
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek15
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek16
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek16
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek17
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek17
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek18
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek18
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek19
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek19
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek20
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek20
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek21
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek21
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek22
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek22
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek23
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek23
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek24
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek24
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek25
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek25
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek26
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek26
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek27
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek28
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek27
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek29
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek28
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek29
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek30
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek30
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek31
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek32
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek31
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek33
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek32
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek33
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek34
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek34
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek35
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek35
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek36
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek36
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek37
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek37
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek38
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek38
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek39
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek39
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek40
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek40
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek41
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek41
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek42
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek42
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek43
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek43
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek44
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek44
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek45
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek45
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek46
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek46
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek47
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek47
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek48
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek48
+*3
+$5
+LPUSH
+$19
+MESSAGE_STORE#COUNT
+$29
+Message  Hello Mr. Abhishek49
+*4
+$4
+LREM
+$19
+MESSAGE_STORE#COUNT
+$1
+1
+$29
+Message  Hello Mr. Abhishek49

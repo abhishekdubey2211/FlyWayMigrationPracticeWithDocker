@@ -39,7 +39,9 @@
 
         <!-- Console Appender: Prints logs to standard output (terminal) -->
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%t] [${APP_NAME}] %c{1}.%M [%L] -- %m%n"/>
+<!--            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%t] [${APP_NAME}] %c{1}.%M [%L] &#45;&#45; %m%n"/>-->
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %c{1}.%M [%L] -- %m%n"/>
+
         </Console>
     </Appenders>
 
